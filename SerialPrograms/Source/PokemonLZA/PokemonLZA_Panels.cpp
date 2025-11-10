@@ -38,6 +38,7 @@
 #include "Programs/TestPrograms/PokemonLZA_OverworldWatcher.h"
 #include "Programs/TestPrograms/PokemonLZA_MoveBoxArrow.h"
 #include "Programs/TestPrograms/PokemonLZA_TestBoxCellInfo.h"
+#include "Programs/TestPrograms/PokemonLZA_BoxSorter.h"
 
 namespace PokemonAutomation{
 namespace NintendoSwitch{
@@ -77,22 +78,16 @@ std::vector<PanelEntry> PanelListFactory::make_panels() const{
     ret.emplace_back(make_single_switch_program<ShinyHunt_WildZoneEntrance_Descriptor, ShinyHunt_WildZoneEntrance>());
     ret.emplace_back(make_single_switch_program<AutoFossil_Descriptor, AutoFossil>());
     if (IS_BETA_VERSION){
-    }
-    if (PreloadSettings::instance().DEVELOPER_MODE){
+        ret.emplace_back(make_single_switch_program<AutoFossil_Descriptor, AutoFossil>());
         ret.emplace_back(make_single_switch_program<BeldumHunter_Descriptor, BeldumHunter>());
     }
 
-    if (IS_BETA_VERSION){
-        ret.emplace_back("---- Non-Shiny Hunting ----");
-        ret.emplace_back(make_single_switch_program<StatsReset_Descriptor, StatsReset>());
-    }
-
-    if (PreloadSettings::instance().DEVELOPER_MODE){
-        ret.emplace_back("---- Developer Tools ----");
-        ret.emplace_back(make_single_switch_program<OverworldWatcher_Descriptor, OverworldWatcher>());
-        ret.emplace_back(make_single_switch_program<MoveBoxArrow_Descriptor, MoveBoxArrow>());
-        ret.emplace_back(make_single_switch_program<TestBoxCellInfo_Descriptor, TestBoxCellInfo>());
-    }
+    
+    ret.emplace_back("---- Developer Tools ----");
+    ret.emplace_back(make_single_switch_program<OverworldWatcher_Descriptor, OverworldWatcher>());
+    ret.emplace_back(make_single_switch_program<MoveBoxArrow_Descriptor, MoveBoxArrow>());
+    ret.emplace_back(make_single_switch_program<TestBoxCellInfo_Descriptor, TestBoxCellInfo>());
+    ret.emplace_back(make_single_switch_program<BoxSorter_Descriptor, BoxSorter>());
     return ret;
 }
 
